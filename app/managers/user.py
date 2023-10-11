@@ -33,7 +33,7 @@ class UserManager(BaseManager):
         if len(first_name) < 3 or len(last_name) < 3:
             raise ValueError("Введите имя и фамилию")
 
-        user = self.entity(
+        user = User(
             first_name=first_name,
             last_name=last_name,
             email=email
