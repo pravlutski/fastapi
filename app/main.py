@@ -1,9 +1,6 @@
 #import uvicorn
 from fastapi import (
-    FastAPI,
-    HTTPException,
-    status,
-    Request,
+    FastAPI
 )
 
 from routes import user

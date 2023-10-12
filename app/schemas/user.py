@@ -1,8 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel, EmailStr, Field, ConfigDict
-from typing import Optional
-from managers.user import UserManager
-from models.user import User
+from typing import Optional, Any
 
 
 class UserListSchema(BaseModel):
@@ -10,12 +8,6 @@ class UserListSchema(BaseModel):
     first_name: Optional[str]
     last_name: Optional[str]
     email: EmailStr
-
-    model_config = ConfigDict(from_attributes=True)
-
-
-class UserListResponse(BaseModel):
-    users: list[UserListSchema]
 
 
 class UserDetailResponse(BaseModel):
@@ -44,7 +36,7 @@ class UserCreateResponse(BaseModel):
 
 class UserUpdateRequest(BaseModel):
     """ update user """
-    first_name: str = Field(..., min_length=3, max_length=20)
+    first_name: str = Field(default=None, min_length=3, max_length=20)
     last_name: str = Field(..., min_length=3, max_length=20)
 
 

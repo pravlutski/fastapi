@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 from schemas.user import (
-    UserListResponse,
+    UserListSchema,
     UserDetailResponse,
     UserCreateRequest,
     UserCreateResponse,
@@ -16,7 +16,8 @@ router = APIRouter()
 @router.get(
     '/users',
     tags=['users'],
-    name="Список всех"
+    name="Список всех",
+    response_model=list[UserListSchema]
 )
 def get_all_users(page: int = 1, limit: int = 5):
     try:
@@ -27,7 +28,7 @@ def get_all_users(page: int = 1, limit: int = 5):
 
         result = UserManager().get_list(page=page, limit=limit)
         if result is not None:
-            return UserListResponse(users=result)
+            return result
 
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="invalid response")
     except HTTPException as e:
